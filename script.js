@@ -13,8 +13,20 @@ getMovieBtn.addEventListener("click", renderMovie);
 
 function renderMovie() {
   const movieObject = getSingleMovieObject();
- console.log(getSingleMovieObject());
-  movieModalInner.innerHTML = `<img class="movie-poster" src="${movieObject.poster}"/>`;
+ console.log(movieObject);
+  movieModalInner.innerHTML = `<div>
+  <img class="movie-poster" src="${movieObject.poster}"/>
+  <h2 class="movie-title">${movieObject.title}</h2>
+  <div class="movie-details">
+  <p>Year: ${movieObject.year}</p>
+  <p>Rating:${movieObject.rating}</p>
+  </div>
+  <p class="movie-genre">${movieObject.genre}</p>
+
+  
+  </div>`
+  console.log(movieObject.year);
+  
   movieModal.style.display = "flex";
 }
 
@@ -25,6 +37,8 @@ function getSingleMovieObject() {
     return matchingMovies[0];
   } else{
     const randomNumber = Math.floor(Math.random()*matchingMovies.length);
+    console.log(matchingMovies[randomNumber]);
+    
    return matchingMovies[randomNumber];
   }
 }
@@ -36,12 +50,13 @@ function getMatchingArray() {
      const selectedRadio = document.querySelector(`input[type="radio"]:checked`);
   const matchingArray = moviesData.filter(function(movie){
  if (isclassic) {
-      return movie.moodTags.includes(selectedRadio) && movie.isClassic === true;
+      return movie.moodTags.includes(selectedRadio.value) && movie.year<2000;
     } else {
       return movie.moodTags.includes(selectedRadio.value);
     }
 
   });
+  
   return matchingArray
   }
  }
